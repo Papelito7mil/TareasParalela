@@ -1,0 +1,138 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <iostream>
+
+
+using namespace std;
+
+void llenar_Matriz(int Tablero[][9], char *contenido)
+{
+    int inicio, Num[3],cont=-1;;
+    string arreglo=contenido;
+    char Y;
+
+     for(int i=0;i<9;i++)
+     {
+         for(int j=0;j<9;j++)
+         {
+             Tablero[i][j]=0;
+          }
+      }
+    
+     for(int i=0;i<arreglo.length();i++)
+     {
+         Y=arreglo[i];
+         inicio=Y;
+         if(inicio>47 && inicio<58)
+         {
+             Num[++cont]=inicio-48;
+         }
+         if(cont==2)
+         {
+             Tablero[Num[0]][Num[1]]=Num[2];
+             cont=-1;
+         }
+     
+     }
+}
+
+int comprobar_contenido(char *contenido)
+{
+    int info=1,inicio,chao=0,Num[3],cont=-1;
+    char M;
+    string arreglo=contenido;
+    for(int i=0;i<arreglo.length();i++)
+     {
+         M=arreglo[i];
+         inicio=M;
+         if(inicio>47 && inicio<58 || inicio==91 || inicio==93 || inicio==59)
+         {
+            if((chao>47 && chao<58) && (inicio>47 && inicio<58))
+            {
+                i=arreglo.length();
+                info=0;
+            }
+            chao=inicio;
+         }
+         else
+         {
+            i=arreglo.length();
+            info=0;
+         }
+     
+     }
+
+     if(info==1)
+     {
+        for(int i=0;i<arreglo.length();i++)
+        {
+             M=arreglo[i];
+             inicio=M;
+             if(inicio>47 && inicio<58)
+             {
+                 Num[++cont]=inicio-48;
+             }
+             if(cont==2)
+             {
+                 cont=-1;
+                 if(Num[0]>-1 && Num[0]<9 && Num[1]>-1 && Num[1]<9 && Num[2]>0 && Num[2]<10)
+                 {
+
+                 }
+                 else
+                 {
+                    i=arreglo.length();
+                    info=0;
+                 }
+             }
+     
+        }
+     }
+     return info;
+}
+
+void mostrar_Matriz(int Tablero[][9])
+{
+    for(int i=0;i<9;i++)
+    {
+        if(i%3==0)
+        {
+            cout<<"______________________________________"<<endl;
+        }
+        for(int j=0;j<9;j++)
+        {
+            if(j%3==0)
+            {
+                cout<<"|";
+            }
+            cout<<Tablero[i][j]<<" ";
+
+        }
+        cout<<endl;
+    }
+}
+
+int main(int argc, char* argv[])
+{
+
+    int  Tablero[9][9];
+    if(argc<2)
+    {
+        cout<<"\\\\\\\\\\\\\\\\\\\\\BIENVENIDO/////////////////////"<<endl;
+		cout<<"INGRESE CONTENIDO: "<<endl;
+    }
+    else
+    {
+        if(comprobar_contenido(argv[1])==1)
+        {
+            llenar_Matriz(Tablero,argv[1]);
+            mostrar_Matriz(Tablero);
+        }
+        else
+        {
+            cout<<" SE PRODUJO UN ERROR, CONTENIDO ERRONEO "<<endl;
+        }
+    }
+    return 0;
+}
