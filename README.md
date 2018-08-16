@@ -1,8 +1,6 @@
 # TareasParalela
-Para subir tareas y trabajos paralela por siempre
 
----
-}TAREA 3
+TAREA 3
 Para COMPILAR por consola
 g++ tarea3.cpp -o "nombre_ejecutable"
 
